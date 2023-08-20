@@ -1,0 +1,39 @@
+appId: KoharuYuzuki.RecBoard
+productName: RecBoard
+copyright: Copyright (c) 2023 KoharuYuzuki
+asar: true
+files:
+  - 'out'
+mac:
+  icon: ./build/icon.icns
+  artifactName: ${productName}-${os}-${arch}.zip
+  target:
+    -
+      target: zip
+      arch:
+        - arm64
+        - x64
+  electronLanguages:
+    - ja
+  extraFiles:
+    -
+      from: ./ThirdPartyNotices.txt
+      to: ../../
+    -
+      from: ./launch.command
+      to: ../../
+win:
+  icon: ./build/icon.ico
+  artifactName: ${productName}-${os}-${arch}.zip
+  target:
+    -
+      target: zip
+      arch:
+        - arm64
+        - x64
+  electronLanguages:
+    - ja
+  extraFiles:
+    -
+      from: ./ThirdPartyNotices.txt
+      to: ./
