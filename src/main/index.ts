@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog } from 'electron'
+import { app, BrowserWindow, dialog, systemPreferences } from 'electron'
 import { join, dirname } from 'path'
 import { is } from '@electron-toolkit/utils'
 import { IPCMain } from '@common/ipc'
@@ -14,6 +14,13 @@ const appVersion = app.getVersion()
 const ipc = new IPCMain()
 
 app.whenReady()
+.then(() => {
+  if (process.platform === 'darwin') {
+    return requestMicPermission()
+  } else {
+    return Promise.resolve()
+  }
+})
 .then(() => createWindow())
 .then((window: BrowserWindow) => mainWindow = window)
 .catch((e) => {
@@ -147,6 +154,28 @@ function loadReclist () {
         .filter((val) => val !== null)
 
       resolve(data as { path: string, text: string }[])
+    })
+    .catch(reject)
+  })
+}
+
+function requestMicPermission () {
+  const result = systemPreferences.getMediaAccessStatus('microphone')
+  if (result === 'granted') {
+    return Promise.resolve()
+  }
+
+  return new Promise<void>((resolve, reject) => {
+    systemPreferences.askForMediaAccess('microphone')
+    .then((result) => {
+      if (result === false) {
+        dialog.showErrorBox(
+          'マイクにアクセスできませんでした',
+          'アクセス権限を付与してから、アプリケーションを再起動してください'
+        )
+      }
+
+      resolve()
     })
     .catch(reject)
   })
