@@ -65,7 +65,7 @@
         .then((_stream) => {
           stream = _stream
 
-          this.recorder = new MediaRecorder(stream, { mimeType: 'audio/webm' })
+          this.recorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=pcm' })
           this.recorder.addEventListener('dataavailable', (event) => {
             if (event.data.size <= 0) return
             if (this.reclist.length <= 0) return
