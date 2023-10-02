@@ -9,7 +9,7 @@ mac:
   artifactName: ${productName}-${os}-${arch}.zip
   target:
     -
-      target: zip
+      target: dir
       arch:
         - arm64
         - x64
