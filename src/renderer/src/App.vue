@@ -338,6 +338,7 @@
       border-radius: 8px;
       background-color: var(--color-theme-2);
       overflow-y: scroll;
+      pointer-events: none;
 
       .text {
         $text-margin: 4px;
