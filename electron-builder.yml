@@ -24,7 +24,7 @@ mac:
       to: ../../
 win:
   icon: ./build/icon.ico
-  artifactName: ${productName}-${os}-${arch}.zip
+  artifactName: ${productName}-v${version}-${os}-${arch}.zip
   target:
     -
       target: zip
